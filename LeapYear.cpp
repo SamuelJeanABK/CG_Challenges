@@ -6,9 +6,6 @@
 #include <string>
 
 std::string input;
-
-std::string CheckLeapYear(int year);
-
 std::map<int, std::string> month_names
 {
     {1, "January"},
@@ -25,6 +22,9 @@ std::map<int, std::string> month_names
     {12, "December"}
 };
 
+std::string CheckLeapYear(int year);
+void HandleInput(std::string input);
+
 int main()
 {
     std::stringstream ss;
@@ -38,25 +38,18 @@ int main()
 
     std::cout << "The current system date is " << month_names[stoi(month)] << " "+day+", " << year << std::endl;
     std::cout << CheckLeapYear(stoi(year)) << std::endl << std::endl;
-    std::cout << "You may input other years to check if it is a leap year or not." << std::endl << std::endl;
-INPUT:
-    std::cin.clear();
-    input.clear();
-    std::cout << "> ";
-    std::getline(std::cin, input);
+    std::cout << "You may input other years to check if it is a leap year or not, or input quit to exit the program." << std::endl << std::endl;
 
-    if (input == "exit" || input == "quit") {return 0;};
+    while (input != "quit")
+    {
+        std::cin.clear();
+        input.clear();
+        std::cout << "> ";
+        std::getline(std::cin, input);
 
-    try
-    {
-        std::cout << CheckLeapYear(stoi(input)) << std::endl << std::endl;
-    }
-    catch (const std::invalid_argument& ia)
-    {
-        std::cout << "Invalid argument: the provided input could not be interpreted as a year." << std::endl << std::endl;
+        HandleInput(input);
     }
 
-    goto INPUT;
     return 0;
 }
 
@@ -85,4 +78,22 @@ std::string CheckLeapYear(int year)
     {
         return "The year "+std::to_string(year)+" is NOT a leap year.";
     }
+}
+
+void HandleInput(std::string input)
+{
+    if (input == "quit") {return;}
+
+    else
+    {
+        try
+        {
+            std::cout << CheckLeapYear(stoi(input)) << std::endl << std::endl;
+        }
+        catch (const std::invalid_argument& ia)
+        {
+            std::cout << "Invalid argument: the provided input could not be interpreted as a year." << std::endl << std::endl;
+        }
+    }
+    return;
 }
