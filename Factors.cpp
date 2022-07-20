@@ -17,6 +17,7 @@ int main()
     while (!bQuit)
     {
         HandleInput(input);
+        factors.clear();
     }
 }
 
@@ -38,7 +39,7 @@ void HandleInput(std::string input)
         std::cerr << e.what() << '\n';
         return;
     }
-    
+
     FactorNumber(number);
     std::cout << "Factors of " << number << ": " << std::endl;
     for (int i = 0; i < factors.size(); i++)
@@ -46,7 +47,6 @@ void HandleInput(std::string input)
         std::cout << factors[i] << std::endl;
     }
     std::cout << std::endl;
-    factors.clear();
 }
 
 void FactorNumber(int num)
